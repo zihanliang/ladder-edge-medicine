@@ -27,6 +27,3 @@ A static site with no build step:
 python3 -m http.server 8000
 ```
 Then open http://localhost:8000.
-
-## Team
-Zihan Liang and Yixuan (Kathy) Liu, PhD students in Computational Biology and Bioinformatics, Duke University.
