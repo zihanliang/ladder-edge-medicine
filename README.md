@@ -4,7 +4,7 @@
 
 Patients change their own treatment between visits, often after a video that stretches a real study. Ladder gives them an honest answer about the claim and, with their consent, sends the decision to their care team through [JupyterHealth](https://jupyterhealth.org). The clinician’s reply comes back in days, not at the next visit.
 
-The demo walks through Edge Medicine’s loop with two screens side by side:
+A 2½-minute captioned video at the top of the page shows the whole story (`assets/ladder-edge-demo.mp4`, captions also in `assets/ladder-edge-demo.vtt`). The interactive demo below it walks through Edge Medicine’s loop with two screens side by side:
 
 | Stage | Alex’s phone (patient) | Dr. Lee’s EHR (clinician) |
 |---|---|---|

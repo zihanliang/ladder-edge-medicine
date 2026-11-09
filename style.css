@@ -876,3 +876,38 @@ body.hide-top .top{transform:translateY(-100%)}
 @media (max-width:1100px){ :root{--dev-h:clamp(560px, calc(100svh - 160px), 760px)} }
 @media (max-width:560px){ .vid-cap{font-size:22px;right:64px} }
 .sb:not(.light){background:#fff}
+
+/* ================= v7: logo and video ================= */
+.brand .mark{width:32px;height:32px;border-radius:8px;flex:none}
+.vsec{padding:120px var(--m) 40px}
+.vsec-head{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:48px;align-items:end}
+.vsec-head h2{font-size:var(--f-h2);line-height:1.05;font-weight:800}
+.vsec-head .lead{margin-top:0}
+.player{position:relative;margin:40px auto 0;width:100%;max-width:min(1360px, calc((100svh - 120px) * 16 / 9));aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;background:var(--navy)}
+.player video{display:block;width:100%;height:100%;object-fit:contain;background:var(--navy)}
+.vplay{position:absolute;left:50%;top:62%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:14px;padding:16px 26px 16px 18px;border-radius:999px;background:var(--mint);color:var(--navy);font:800 var(--f-body) var(--head);transition:transform .15s var(--ease),background .2s}
+.vplay:hover{background:#A9E6DB;transform:translate(-50%,-50%) scale(1.04)}
+.vplay .tri{width:40px;height:40px;border-radius:50%;background:var(--navy);position:relative;flex:none}
+.vplay .tri::after{content:"";position:absolute;left:15px;top:11px;border-left:14px solid var(--mint);border-top:9px solid transparent;border-bottom:9px solid transparent}
+.player.playing .vplay{display:none}
+.demo{padding-top:96px}
+@media (max-width:1100px){
+  .vsec{padding:88px var(--m) 24px}
+  .vsec-head{grid-template-columns:1fr;gap:12px}
+  .player{margin-top:24px}
+  .vplay{top:50%;padding:12px 20px 12px 14px}
+}
+
+.vsec{padding-top:64px}
+.vsec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 32px}
+.vsec-head h2{white-space:nowrap}
+.vsec-head .lead{max-width:40ch}
+.player{margin-top:24px;max-width:min(1360px, calc((100svh - 236px) * 16 / 9))}
+@media (max-width:700px){ .vsec-head h2{white-space:normal} }
+.vsec{padding-top:52px}
+.player{max-width:min(1360px, calc((100svh - 250px) * 16 / 9))}
+.vplay{top:79%}
+@media (max-width:1100px){ .vplay{top:50%} }
+.vplay{white-space:nowrap}
+@media (max-width:700px){ .vplay{font-size:15px;gap:10px;padding:8px 16px 8px 8px} .vplay .tri{width:30px;height:30px} .vplay .tri::after{left:11px;top:8px;border-left-width:11px;border-top-width:7px;border-bottom-width:7px} }
+@media (max-width:700px){ .vplay{display:none} }

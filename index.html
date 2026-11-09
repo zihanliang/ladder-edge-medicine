@@ -9,6 +9,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet"> <!-- taste-skill-ignore: JetBrains Mono is used only for code (FHIR JSON) -->
 <link rel="stylesheet" href="style.css">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#14213D">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ladder × Edge Medicine">
+<meta property="og:description" content="Saw it online? Tell your doctor. Ladder checks the health claim, then sends your decision to your care team through JupyterHealth.">
+<meta property="og:url" content="https://www.zihanliang.com/ladder-edge-medicine/">
+<meta property="og:image" content="https://www.zihanliang.com/ladder-edge-medicine/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 
@@ -25,10 +35,10 @@
 </svg>
 
 <header class="top">
-  <a class="brand" href="#top" aria-label="Ladder, top of page"><svg><use href="#lad"/></svg>Ladder</a>
+  <a class="brand" href="#top" aria-label="Ladder, top of page"><img class="mark" src="assets/logo.svg" width="32" height="32" alt="">Ladder</a>
   <span class="brand-note">Prototype · synthetic data</span>
   <nav class="topnav" aria-label="Sections">
-    <a href="#demo">Demo</a><a href="#jupyterhealth">JupyterHealth</a><a href="#problem">Why</a><a href="#safety">Safety</a><a href="#team">Team</a>
+    <a href="#video">Video</a><a href="#demo">Demo</a><a href="#jupyterhealth">JupyterHealth</a><a href="#problem">Why</a><a href="#safety">Safety</a><a href="#team">Team</a>
   </nav>
   <a class="btn btn-small" href="#demo" data-act="guided-start">Try the demo</a>
 </header>
@@ -40,8 +50,8 @@
     <h1>Saw it online? Tell your doctor.</h1>
     <p class="hero-lead">Ladder checks the health claim, then sends your decision to your care team.</p>
     <div class="hero-cta">
-      <a class="btn btn-accent" href="#demo" data-act="guided-start">Try the 3-minute demo</a>
-      <a class="link-light" href="#demo" data-act="free-start">Explore on your own</a>
+      <a class="btn btn-accent" href="#video">Watch the 2½-minute video</a>
+      <a class="link-light" href="#demo" data-act="guided-start">Or try the demo yourself</a>
     </div>
   </div>
   <div class="hero-visual" data-ui role="img" aria-label="A video claims berberine is nature's Ozempic; Ladder marks it as stretched; the clinician's EHR shows that Alex is considering stopping metformin.">
@@ -62,6 +72,21 @@
       <p class="hv-ehr-b">Reply</p>
     </div>
   </div>
+</section>
+
+<section id="video" class="sec vsec" aria-labelledby="vid-h">
+  <div class="vsec-head">
+    <h2 id="vid-h" class="reveal">The whole loop in 2½ minutes</h2>
+    <p class="lead reveal">Captions tell the story, so it works with the sound off.</p>
+  </div>
+  <figure class="player reveal">
+    <video id="vid" controls preload="metadata" playsinline poster="assets/video-poster.jpg" width="1920" height="1080">
+      <source src="assets/ladder-edge-demo.mp4" type="video/mp4">
+      <track kind="captions" srclang="en" label="English" src="assets/ladder-edge-demo.vtt">
+      Your browser can’t play this video. <a href="assets/ladder-edge-demo.mp4">Download it (MP4, 11 MB)</a>.
+    </video>
+    <button class="vplay" id="vplay" type="button" aria-label="Play the video, 2 minutes 36 seconds"><span class="tri" aria-hidden="true"></span><span>Play · 2:36</span></button>
+  </figure>
 </section>
 
 <section id="demo" class="demo" aria-labelledby="demo-h">

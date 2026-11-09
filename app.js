@@ -981,6 +981,16 @@ $('#pathsel').addEventListener('change', e => { const v = e.target.value; e.targ
 addEventListener('resize', placeCoach);
 addEventListener('load', placeCoach);
 
+// video: big play button over the poster
+(() => {
+  const v = $('#vid'), b = $('#vplay'), fig = v && v.closest('.player');
+  if (!v || !b) return;
+  b.addEventListener('click', () => { v.play(); });
+  v.addEventListener('play', () => fig.classList.add('playing'));
+  v.addEventListener('pause', () => { if (v.currentTime === 0 || v.ended) fig.classList.remove('playing'); });
+  v.addEventListener('ended', () => fig.classList.remove('playing'));
+})();
+
 S = fresh('berberine');
 renderRefs(); reveals();
 const m = location.hash.match(/step=(\d+)/);
