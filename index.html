@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ladder × Edge Medicine</title>
+<meta name="description" content="Interactive prototype: a patient's self-treatment decision reaches their clinician through JupyterHealth. Synthetic data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet"> <!-- taste-skill-ignore: JetBrains Mono is used only for code (FHIR JSON) -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="lad" viewBox="0 0 32 32">
+      <rect x="6" y="2" width="3.4" height="28" rx="1.7" fill="currentColor"/>
+      <rect x="22.6" y="2" width="3.4" height="28" rx="1.7" fill="currentColor"/>
+      <rect x="8" y="22" width="16" height="3.2" rx="1.6" fill="#0F766E" opacity=".5"/>
+      <rect x="8" y="14.4" width="16" height="3.2" rx="1.6" fill="#0F766E" opacity=".75"/>
+      <rect x="8" y="6.8" width="16" height="3.2" rx="1.6" fill="#0F766E"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <a class="brand" href="#top" aria-label="Ladder, top of page"><svg><use href="#lad"/></svg>Ladder</a>
+  <span class="brand-note">Prototype · synthetic data</span>
+  <nav class="topnav" aria-label="Sections">
+    <a href="#demo">Demo</a><a href="#jupyterhealth">JupyterHealth</a><a href="#problem">Why</a><a href="#safety">Safety</a><a href="#team">Team</a>
+  </nav>
+  <a class="btn btn-small" href="#demo" data-act="guided-start">Try the demo</a>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>Saw it online? Tell your doctor.</h1>
+    <p class="hero-lead">Ladder checks the health claim, then sends your decision to your care team.</p>
+    <div class="hero-cta">
+      <a class="btn btn-accent" href="#demo" data-act="guided-start">Try the 3-minute demo</a>
+      <a class="link-light" href="#demo" data-act="free-start">Explore on your own</a>
+    </div>
+  </div>
+  <div class="hero-visual" data-ui role="img" aria-label="A video claims berberine is nature's Ozempic; Ladder marks it as stretched; the clinician's EHR shows that Alex is considering stopping metformin.">
+    <div class="hv-phone">
+      <img src="assets/berberis-vulgaris.jpg" alt="" width="1400" height="1050">
+      <p class="hv-cap">BERBERINE = NATURE’S OZEMPIC</p>
+      <p class="hv-sub">“I stopped metformin.”</p>
+      <p class="hv-check"><span>Ladder</span>Stretched. The trials didn’t compare it with Ozempic.</p>
+    </div>
+    <div class="hv-arrow" aria-hidden="true">
+      <svg viewBox="0 0 120 24"><path d="M2 12h108" stroke="currentColor" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/><path d="M104 4l10 8-10 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>with consent</span>
+    </div>
+    <div class="hv-ehr">
+      <p class="hv-ehr-top">Dr. Lee’s EHR · new from Ladder</p>
+      <p class="hv-ehr-t">Alex is considering stopping metformin</p>
+      <p class="hv-ehr-s">His words, the evidence, his A1c</p>
+      <p class="hv-ehr-b">Reply</p>
+    </div>
+  </div>
+</section>
+
+<section id="demo" class="demo" aria-labelledby="demo-h">
+  <div class="demo-head">
+    <h2 id="demo-h">Try it in 3 minutes</h2>
+    <p>Tap what glows. Switch the guide off to explore freely.</p>
+  </div>
+
+  <div class="demo-bar">
+    <button class="gswitch on" id="gswitch" role="switch" aria-checked="true" data-act="guide-toggle" title="Turning the guide on restarts the demo"><span class="track"><span class="knob"></span></span>Guide</button>
+    <ol class="loopline" id="loopline" aria-label="Loop progress"></ol>
+    <span class="clock" id="clock" aria-live="polite"></span>
+    <label class="pathsel"><span class="pl">Try a path</span>
+      <select id="pathsel">
+        <option value="" selected>Choose…</option>
+        <option value="guided">The guided story (berberine)</option>
+        <option value="notnow">Alex says no</option>
+        <option value="noportal">Alex shares less</option>
+        <option value="withdraw">Alex takes it back</option>
+        <option value="seamoss">A claim nobody reviewed (sea moss)</option>
+        <option value="ryr">Maria and red yeast rice</option>
+      </select>
+    </label>
+    <button class="btn btn-small btn-ghost" data-act="reset">Restart</button>
+  </div>
+
+  <div class="demo-grid">
+    <div class="stage-wrap">
+      <div class="viewswitch" role="group" aria-label="Which screen to show">
+        <button data-act="focus" data-f="patient" id="vs-patient">Alex’s phone</button>
+        <button data-act="focus" data-f="clinician" id="vs-clinician">Dr. Lee’s EHR<i class="vdot" id="vdot"></i></button>
+      </div>
+      <div class="stage focus-patient" id="stage">
+        <div class="dev dev-patient" id="dev-patient">
+          <p class="dev-label"><span class="role r-pat">Patient</span><b id="plabel">Alex’s phone</b></p>
+          <div class="dev-body">
+            <div class="phone" data-ui><div class="screen" id="phone"></div></div>
+          </div>
+          <button class="dev-open" data-act="focus" data-f="patient"><span id="open-patient">Alex’s phone</span></button>
+        </div>
+        <div class="dev dev-clinician" id="dev-clinician">
+          <p class="dev-label"><span class="role r-doc">Clinician</span><b>Dr. Lee’s EHR</b></p>
+          <div class="dev-body">
+            <div class="ehr" id="ehr" data-ui></div>
+          </div>
+          <button class="dev-open" data-act="focus" data-f="clinician"><span id="open-clinician">Waiting for Alex</span></button>
+        </div>
+      </div>
+      <div class="data" id="data"></div>
+      <div class="coach" id="coach" role="dialog" aria-live="polite" aria-label="Guide" hidden></div>
+    </div>
+  </div>
+  <div id="packet" aria-hidden="true"></div>
+</section>
+
+<section id="jupyterhealth" class="sec row2" aria-labelledby="jh-h">
+  <h2 id="jh-h" class="reveal">Built on JupyterHealth</h2>
+  <div>
+    <p class="lead reveal">Three pieces that already exist. Nothing custom per hospital.</p>
+    <ol class="pieces">
+      <li class="pc-teal reveal"><b>Exchange</b><span>Holds the decision, with consent</span></li>
+      <li class="pc-ink reveal"><b>Voilà on JupyterHub</b><span>Builds Dr. Lee’s card</span></li>
+      <li class="pc-white reveal"><b>SMART on FHIR</b><span>Opens the card in the EHR</span></li>
+    </ol>
+    <p class="qline reveal"><b>Open question for Edge Medicine:</b> store “considering” as a <code>MedicationStatement</code> or an <code>Observation</code>?</p>
+  </div>
+</section>
+
+<section id="problem" class="sec sec-tone" aria-labelledby="pr-h">
+  <div class="row2">
+    <h2 id="pr-h" class="reveal">Why it matters</h2>
+    <p class="lead reveal">Patients change their own treatment between visits. Their doctors rarely know.</p>
+  </div>
+  <div class="tiles">
+    <div class="tile t-accent reveal">
+      <b>18%</b>
+      <p>of supplement users had told a provider</p>
+    </div>
+    <div class="tile t-ink reveal">
+      <b>23,005</b>
+      <p>U.S. emergency visits a year from supplements</p>
+    </div>
+    <figure class="tile t-photo reveal">
+      <img src="assets/pills.jpg" alt="Assorted capsules and tablets on a white surface" width="1400" height="934" loading="lazy">
+      <figcaption>Everyone else waits for the next visit.</figcaption>
+    </figure>
+  </div>
+  <p class="srcs reveal">Sources: Gardiner et al., Patient Educ Couns 2015, hospitalized patients <a href="#ref-4">[4]</a>; Geller et al., N Engl J Med 2015 <a href="#ref-5">[5]</a>.</p>
+</section>
+
+<section id="safety" class="sec split" aria-labelledby="sf-h">
+  <figure class="shaped reveal">
+    <img src="assets/capsules.jpg" alt="Gel capsules spilling from a small glass dome" width="1400" height="933" loading="lazy">
+  </figure>
+  <div class="split-text">
+    <h2 id="sf-h" class="reveal">What Ladder won’t do</h2>
+    <ul class="marks big">
+      <li class="reveal">Tell anyone to stop a medicine</li>
+      <li class="reveal">Judge a claim no expert has reviewed</li>
+      <li class="reveal">Send anything without the patient’s OK</li>
+      <li class="reveal">Give patients personal medical advice</li>
+      <li class="reveal">Take supplement-industry money</li>
+    </ul>
+  </div>
+</section>
+
+<section id="impact" class="sec sec-tone row2" aria-labelledby="im-h">
+  <h2 id="im-h" class="reveal">How we’ll measure it</h2>
+  <div>
+    <div class="metrics">
+      <div class="metric m-accent reveal"><h3>Share rate</h3><p>How many checks end with “Send”</p></div>
+      <div class="metric m-stone reveal"><h3>Time to doctor</h3><p>Days, instead of the next visit</p></div>
+    </div>
+    <p class="qline reveal"><b>Pilot:</b> one clinic, 3 to 6 months, designed with UCSF mentors.</p>
+  </div>
+</section>
+
+<section id="team" class="sec" aria-labelledby="tm-h">
+  <div class="panel">
+    <h2 id="tm-h" class="reveal">We still need a clinician</h2>
+    <div class="people">
+      <figure class="person reveal"><img src="assets/zihan.jpg" alt="Zihan Liang" width="600" height="750" loading="lazy"><figcaption><h3>Zihan Liang</h3><p>Clinical AI that knows when not to answer</p></figcaption></figure>
+      <figure class="person reveal"><img src="assets/kathy.jpg" alt="Yixuan (Kathy) Liu" width="600" height="750" loading="lazy"><figcaption><h3>Yixuan (Kathy) Liu</h3><p>Biology of aging; grades the evidence</p></figcaption></figure>
+    </div>
+    <p class="panel-note reveal">PhD students, Computational Biology and Bioinformatics, Duke University.</p>
+  </div>
+</section>
+
+<section id="sources" class="sec sec-tone row2" aria-labelledby="so-h">
+  <h2 id="so-h" class="reveal">Real or simulated</h2>
+  <div>
+    <ul class="truth reveal">
+      <li><b class="real">Real</b>Research findings, statistics, medical codes</li>
+      <li><b class="sim">Fictional</b>Alex, Dr. Lee, the clinic, the EHR, videos, messages</li>
+      <li><b class="sim">Illustrative</b>FHIR data and API calls; nothing leaves your browser</li>
+    </ul>
+    <details class="more reveal">
+      <summary>Sources and picture credits</summary>
+      <div class="refs-wrap">
+        <ol class="refs" id="refs"></ol>
+        <ul class="credits" id="credits"></ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot-mark" role="img" aria-label="Ladder"><span data-l="L"></span><span data-l="A"></span><span data-l="D"></span><span data-l="D"></span><span data-l="E"></span><span data-l="R"></span></div>
+  <p>Prototype for the Edge Medicine Innovation Challenge 2026. Synthetic data, not medical advice. Zihan Liang and Yixuan (Kathy) Liu, Duke University.</p>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
